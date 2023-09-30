@@ -1,6 +1,6 @@
 package com.nturbo1.satWebsiteProjBack.web.controller;
 
-import org.springframework.http.MediaType;
+import org.springframework.http.MediaType; 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;

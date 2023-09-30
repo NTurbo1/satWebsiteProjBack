@@ -21,7 +21,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
 	
 	//@Value("${application.security.jwt.secret-key}")
-	  private String secretKey = "89bfc5951aeceb31d9b01f33bd35cf116b1d53c0650de18c4eefbaaa7d87b23f";
+	  private String secretKey = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
 	  //@Value("${application.security.jwt.expiration}")
 	  private long jwtExpiration = 1000 * 60 * 24;
 	 // @Value("${application.security.jwt.refresh-token.expiration}")

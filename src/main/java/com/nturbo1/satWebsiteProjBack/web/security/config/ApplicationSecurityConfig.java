@@ -30,6 +30,9 @@ public class ApplicationSecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
 		http
+//				.requiresChannel(channel -> 
+//					channel.anyRequest().requiresSecure()
+//				)
 				.csrf()
 				.disable()
 				.authorizeHttpRequests()
@@ -43,7 +46,8 @@ public class ApplicationSecurityConfig {
 				.and()
 				.authenticationProvider(authenticationProvider)
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
+		
+		
 		return http.build();
 	}
 }
