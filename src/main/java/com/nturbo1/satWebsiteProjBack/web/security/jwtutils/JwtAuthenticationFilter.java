@@ -11,24 +11,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.nturbo1.satWebsiteProjBack.service.JwtService;
+import com.nturbo1.satWebsiteProjBack.service.TokenService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 
 @Component
+@AllArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	private final JwtService jwtService;
 	private final UserDetailsService userDetailsService;
-	
-	public JwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
-		super();
-		this.jwtService = jwtService;
-		this.userDetailsService = userDetailsService;
-	}
-
+	private final TokenService tokenService;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -49,7 +46,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 			
-			if (jwtService.isTokenValid(userEmail, userDetails)) {
+			if (jwtService.isTokenValid(jwt, userDetails) && tokenService.isUserTokenExists(jwt)) {
+				
 				UsernamePasswordAuthenticationToken authenticationToken = 
 						new UsernamePasswordAuthenticationToken(
 								userDetails,

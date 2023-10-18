@@ -30,9 +30,9 @@ public class Role {
 	@ManyToMany
 	private List<Permission> permissions = new ArrayList<>();
 
-	@Override
-	public String toString() {
-		return "Role [roleId=" + roleId + ", roleName=" + roleName + ", users=" + users + ", permissions=" + permissions
-				+ "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Role [roleId=" + roleId + ", roleName=" + roleName + ", users=" + users + ", permissions=" + permissions
+//				+ "]";
+//	}
 }

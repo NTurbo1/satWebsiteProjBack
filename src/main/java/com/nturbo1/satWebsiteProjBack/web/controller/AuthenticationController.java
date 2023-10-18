@@ -1,5 +1,6 @@
 package com.nturbo1.satWebsiteProjBack.web.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType; 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,11 +28,12 @@ public class AuthenticationController {
 	}
 
 	@PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<Void> register(
     		@RequestBody RegisterRequest request) {
 		
 		System.out.println("Register request: " + request);
-    	return ResponseEntity.ok(authenticationService.register(request));
+		authenticationService.register(request);
+		return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
     @PostMapping("/authenticate")
