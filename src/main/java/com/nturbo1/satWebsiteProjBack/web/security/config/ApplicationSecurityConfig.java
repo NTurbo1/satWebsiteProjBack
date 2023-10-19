@@ -1,8 +1,13 @@
 package com.nturbo1.satWebsiteProjBack.web.security.config;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;  
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
@@ -12,6 +17,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.nturbo1.satWebsiteProjBack.web.controller.RestApiConst;
 import com.nturbo1.satWebsiteProjBack.web.security.jwtutils.JwtAuthenticationFilter;
@@ -36,6 +45,7 @@ public class ApplicationSecurityConfig {
 //					channel.anyRequest().requiresSecure()
 //				)
 				.csrf( auth -> auth.disable())
+				.cors(Customizer.withDefaults())
 				.authorizeHttpRequests( auth -> {
 					auth.requestMatchers(RestApiConst.AUTH_API_ROOT_PATH + "/**").permitAll();
 					auth.anyRequest().authenticated();
@@ -55,5 +65,19 @@ public class ApplicationSecurityConfig {
 				});
 		
 		return http.build();
+	}
+	
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+		configuration.setAllowedHeaders(List.of("Authorization", "Content-type"));
+		
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		
+		return source;
 	}
 }
