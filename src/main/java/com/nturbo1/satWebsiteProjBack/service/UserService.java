@@ -27,6 +27,11 @@ public class UserService {
 					.mapToUserResponseDtoList(userRepository.findAll());
 	}
 	
+	public List<UserResponseDto> readAllStudents() {
+		return userMapper
+					.mapToUserResponseDtoList(userRepository.findAllStudents());
+	}
+	
 	public UserResponseDto readById(Long id) {
 		return userMapper.map(userRepository.findById(id).get());
 	}
