@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ import com.nturbo1.satWebsiteProjBack.web.versioning.ApiVersion;
 
 import lombok.AllArgsConstructor;
 
-//@CrossOrigin
+@CrossOrigin
 @ApiVersion(1)
 @RestController
 @RequestMapping(value = RestApiConst.STUDENT_API_ROOT_PATH, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,6 +33,11 @@ public class StudentController {
 	@GetMapping
 	public ResponseEntity<List<UserResponseDto>> readAll() {
 		return ResponseEntity.ok(userService.readAllStudents());
+	}
+	
+	@GetMapping(value = "/{id:\\d+}")
+	public ResponseEntity<UserResponseDto> readById(@PathVariable Long id) {
+		return ResponseEntity.ok(userService.readById(id));
 	}
 	
 	@PutMapping(value = "/{id:\\d+}")

@@ -62,7 +62,7 @@ public class User implements UserDetails {
 	)
 	private List<Role> roles;
 	
-	@OneToMany(mappedBy = "creator")
+	@OneToMany(mappedBy = "creator", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Test> createdTests;
 	
 	@OneToMany(mappedBy = "user")

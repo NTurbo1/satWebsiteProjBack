@@ -1,6 +1,7 @@
 package com.nturbo1.satWebsiteProjBack.web.security.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -10,10 +11,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.nturbo1.satWebsiteProjBack.service.UserService;
 
 @Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = "com.nturbo1.satWebsiteProjBack")
 public class ApplicationWebConfig {
 	
 	private final UserService userService;
