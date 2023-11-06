@@ -11,16 +11,14 @@ import com.nturbo1.satWebsiteProjBack.service.dto.request.UserRequestDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.response.UserResponseDto;
 import com.nturbo1.satWebsiteProjBack.service.mapper.UserMapper;
 
+import lombok.Data;
+
 @Service
+@Data
 public class UserService {
 	
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;
-	
-	public UserService(UserRepository userRepository, UserMapper userMapper) {
-		this.userRepository = userRepository;
-		this.userMapper = userMapper;
-	}
 	
 	public List<UserResponseDto> readAll() {
 		return userMapper

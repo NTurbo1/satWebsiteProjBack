@@ -1,6 +1,6 @@
 package com.nturbo1.satWebsiteProjBack.repository.entities;
 
-import java.util.Collection;   
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.nturbo1.satWebsiteProjBack.repository.entities.courses.Course;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,7 +28,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -54,21 +55,35 @@ public class User implements UserDetails {
 	@Column
 	private String email;
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@ManyToMany(
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE}, 
+			fetch = FetchType.EAGER)
 	@JoinTable(
-	    name = "user_roles",
+	    name = "users_roles",
 	    joinColumns = @JoinColumn(name = "user_id"),
 	    inverseJoinColumns = @JoinColumn(name = "role_id")
 	)
 	private List<Role> roles;
 	
-	@OneToMany(mappedBy = "creator", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(
+		name = "users_courses",
+	    joinColumns = @JoinColumn(name = "user_id"),
+	    inverseJoinColumns = @JoinColumn(name = "course_id")
+	)
+	private List<Course> enrolledCourses;
+	
+	@OneToMany(mappedBy = "creator", 
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Test> createdTests;
 	
 	@OneToMany(mappedBy = "user")
 	private List<UserTest> userTests;
 	
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true)
 	private Token token;
 	
 	private Set<Permission> getPermissions() {

@@ -18,6 +18,7 @@ import lombok.Getter;
 @Table(name = "test")
 @Getter
 public class Test {
+	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "test_id")
 	private long testId;
