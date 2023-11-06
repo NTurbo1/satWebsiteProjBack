@@ -1,9 +1,16 @@
 package com.nturbo1.satWebsiteProjBack.web.controller.courses;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,24 +30,39 @@ public class CourseController {
 
 	private final CourseService courseService;
 
-	public CourseResponseDto createCourse(CourseRequestDto courseRequestDto) {
-		return courseService.createCourse(courseRequestDto);
+	@PostMapping
+	public ResponseEntity<Void> createCourse(
+			@RequestBody CourseRequestDto courseRequestDto) {
+		courseService.createCourse(courseRequestDto);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
-	public List<CourseResponseDto> getAllCourses() {
-		return courseService.getAllCourses();
+	@GetMapping
+	public ResponseEntity<List<CourseResponseDto>> getAllCourses() {
+		return ResponseEntity.ok(
+			courseService.getAllCourses()
+		);
 	}
 	
-	public Optional<CourseResponseDto> getCourseById(Long id) {
-		return courseService.getCourseById(id);
+	@GetMapping(value = "/{id:\\d+}")
+	public ResponseEntity<CourseResponseDto> getCourseById(@PathVariable Long id) {
+		return ResponseEntity.ok(
+			courseService.getCourseById(id).get()
+		);
 	}
 	
-	public CourseResponseDto updateCourse(CourseRequestDto courseRequestDto) {
-		return courseService.updateCourse(courseRequestDto.id(), courseRequestDto);
+	@PutMapping(value = "/{id:\\d+}")
+	public ResponseEntity<CourseResponseDto> updateCourse(@PathVariable Long id, 
+			@RequestBody CourseRequestDto courseRequestDto) {
+		return ResponseEntity.ok(
+			courseService.updateCourse(id, courseRequestDto)
+		);
 	}
 	
-	public void deleteCourse(Long id) {
+	@DeleteMapping(value = "/{id:\\d+}")
+	public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
 		courseService.deleteCourse(id);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
   
 }
