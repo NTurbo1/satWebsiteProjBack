@@ -12,6 +12,8 @@ public record CourseResponseDto(
 	String description,
 	String type,
 	Date createdDate,
+	String status,
+	Double price,
 	List<CourseSection> sections,
 	List<User> enrolledStudents
 ) {

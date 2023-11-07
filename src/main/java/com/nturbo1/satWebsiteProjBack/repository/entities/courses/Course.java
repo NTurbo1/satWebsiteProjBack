@@ -33,6 +33,8 @@ public class Course {
 	private String type;
 	@Column(name = "created_date")
 	private Date createdDate;
+	private String status;
+	private Double price;
 	
 	@OneToMany(
 			mappedBy = "course",
