@@ -1,4 +1,4 @@
-package com.nturbo1.satWebsiteProjBack.service;
+package com.nturbo1.satWebsiteProjBack.service.security;
 
 import java.util.Optional; 
 import java.util.stream.Collectors;
@@ -57,19 +57,26 @@ public class AuthenticationService {
 	}
 
   	public AuthenticationResponse authenticate(AuthenticationRequest request) {
+  		
   		authenticationManager.authenticate(
 			new UsernamePasswordAuthenticationToken(
 				request.getEmail(), 
 				request.getPassword()
 			)
 		);
+  		
+  		System.out.println("The email and password match.");
 
-		var user = userRepository.findByEmail(request.getEmail())
-							.orElseThrow();
+		var user = userRepository
+						.findByEmail(request.getEmail())
+						.orElseThrow();
 
 		String jwtToken = jwtService.generateToken(user);
+		System.out.println("New token generated.");
 		removeUserToken(user);
+		System.out.println("Old token removed.");
 		saveUserToken(jwtToken, user);
+		System.out.println("new token saved.");
 		
 		return AuthenticationResponse.builder()
 								.token(jwtToken)
@@ -80,13 +87,17 @@ public class AuthenticationService {
   	}
   	
   	private void removeUserToken(User user) {
-  		Optional<Token> userToken = tokenRepository.findByUserUserId(user.getUserId());
+  		Optional<Token> userToken = tokenRepository.findByUser(user);
   		
-  		if (userToken.isEmpty()) 
+  		if (userToken.isEmpty()) {
+  			System.out.println("userToken is empty");
   			return;
+  		}
   		
+  		System.out.println("userToken: " + userToken.get());
+  		
+  		user.setToken(null); // SYNCHRONIZING THE OTHER SIDE OF RELATIONSHIP, WHICH IS THE PARENT
   		tokenRepository.delete(userToken.get());
-  		
   	}
   	
   	private void saveUserToken(String token, User user) {

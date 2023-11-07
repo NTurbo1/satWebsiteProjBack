@@ -10,8 +10,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.nturbo1.satWebsiteProjBack.service.JwtService;
-import com.nturbo1.satWebsiteProjBack.service.TokenService;
+import com.nturbo1.satWebsiteProjBack.service.security.JwtService;
+import com.nturbo1.satWebsiteProjBack.service.security.TokenService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package com.nturbo1.satWebsiteProjBack.service;
+package com.nturbo1.satWebsiteProjBack.service.security;
 
 import java.security.Key;
 import java.util.Date;
