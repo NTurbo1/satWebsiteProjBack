@@ -1,7 +1,7 @@
 package com.nturbo1.satWebsiteProjBack.web.controller.payment;
 
 import com.nturbo1.satWebsiteProjBack.service.payment.StripeClient;
-import com.nturbo1.satWebsiteProjBack.web.controller.RestApiConst;
+import com.nturbo1.satWebsiteProjBack.web.controller.constants.RestApiConst;
 import com.nturbo1.satWebsiteProjBack.web.versioning.ApiVersion;
 import com.stripe.model.Charge;
 import org.springframework.beans.factory.annotation.Autowired;

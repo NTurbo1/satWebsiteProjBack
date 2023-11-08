@@ -1,4 +1,4 @@
-package com.nturbo1.satWebsiteProjBack.web.controller;
+package com.nturbo1.satWebsiteProjBack.web.controller.constants;
 
 public class RestApiConst {
 	

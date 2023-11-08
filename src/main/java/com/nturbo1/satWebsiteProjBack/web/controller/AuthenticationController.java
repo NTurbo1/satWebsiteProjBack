@@ -13,6 +13,7 @@ import com.nturbo1.satWebsiteProjBack.service.dto.request.AuthenticationRequest;
 import com.nturbo1.satWebsiteProjBack.service.dto.request.RegisterRequest;
 import com.nturbo1.satWebsiteProjBack.service.dto.response.AuthenticationResponse;
 import com.nturbo1.satWebsiteProjBack.service.security.AuthenticationService;
+import com.nturbo1.satWebsiteProjBack.web.controller.constants.RestApiConst;
 import com.nturbo1.satWebsiteProjBack.web.versioning.ApiVersion;
 
 @ApiVersion(1)

@@ -1,5 +1,6 @@
 package com.nturbo1.satWebsiteProjBack.web.controller.courses;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -12,12 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nturbo1.satWebsiteProjBack.service.courses.CourseService;
 import com.nturbo1.satWebsiteProjBack.service.dto.request.courses.CourseRequestDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.CourseResponseDto;
-import com.nturbo1.satWebsiteProjBack.web.controller.RestApiConst;
+import com.nturbo1.satWebsiteProjBack.web.controller.constants.RestApiConst;
 import com.nturbo1.satWebsiteProjBack.web.versioning.ApiVersion;
 
 import lombok.Data;
@@ -38,10 +40,18 @@ public class CourseController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<CourseResponseDto>> getAllCourses() {
-		return ResponseEntity.ok(
-			courseService.getAllCourses()
-		);
+	public ResponseEntity<List<CourseResponseDto>> getAllCourses(
+			@RequestParam(required = false) String status) {
+		
+		List<CourseResponseDto> courses = new ArrayList<CourseResponseDto>();
+		
+		if (status != null) {
+			courses = courseService.getAllCoursesWithStatus(status);
+		} else {
+			courses = courseService.getAllCourses();
+		}
+		
+		return ResponseEntity.ok(courses);
 	}
 	
 	@GetMapping(value = "/{id:\\d+}")

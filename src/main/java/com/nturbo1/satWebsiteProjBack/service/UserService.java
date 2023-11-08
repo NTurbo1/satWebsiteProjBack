@@ -31,7 +31,14 @@ public class UserService {
 	}
 	
 	public UserResponseDto readById(Long id) {
-		return userMapper.map(userRepository.findById(id).get());
+		Optional<User> user = userRepository.findById(id);
+		
+		if (user.isPresent()) {
+			return userMapper.map(user.get());
+		} else {
+			throw new RuntimeException("User with " + id + " doesn't exist.");
+		}
+		
 	}
 	
 	// we don't use useMapper here because it should return 
@@ -45,7 +52,10 @@ public class UserService {
 		
 		User user = userMapper.map(userRequestDto);
 		
-		return userMapper.map(userRepository.save(user));
+		if (userRepository.existsById(user.getUserId()))
+			return userMapper.map(userRepository.save(user));
+		else
+			throw new RuntimeException("User with id = " + user.getUserId() + " doesn't exist.");
 	}
 	
 	public void delete(Long id) {
@@ -53,7 +63,7 @@ public class UserService {
 		if (userRepository.existsById(id)) {
 			userRepository.deleteById(id);			
 		} else {
-			throw new RuntimeException("User with " + id + " doesn't exist.");
+			throw new RuntimeException("User with id = " + id + " doesn't exist.");
 		}
 	}
 	

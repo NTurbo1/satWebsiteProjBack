@@ -18,7 +18,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.nturbo1.satWebsiteProjBack.web.controller.RestApiConst;
+import com.nturbo1.satWebsiteProjBack.service.courses.CourseStatus;
+import com.nturbo1.satWebsiteProjBack.web.controller.constants.RestApiConst;
+import com.nturbo1.satWebsiteProjBack.web.controller.constants.UserRoleConst;
 import com.nturbo1.satWebsiteProjBack.web.security.jwtutils.JwtAuthenticationFilter;
 
 import lombok.AllArgsConstructor;
@@ -43,8 +45,26 @@ public class ApplicationSecurityConfig {
 				.csrf( auth -> auth.disable())
 				.cors(Customizer.withDefaults())
 				.authorizeHttpRequests( auth -> {
+					
 					auth.requestMatchers(RestApiConst.AUTH_API_ROOT_PATH + "/**").permitAll();
-					auth.anyRequest().authenticated();
+					
+					auth.requestMatchers(RestApiConst.STUDENT_API_ROOT_PATH)
+						.hasAuthority(UserRoleConst.ADMIN_ROLE);
+					
+					auth.
+						requestMatchers(request -> {
+							String url = request.getRequestURL().toString();
+							if (!url.equals("http://localhost:8080/api/v1/courses"))
+								return false;
+							
+							String param = request.getParameter("status");
+							return param.equals(CourseStatus.ACTIVE);
+						})
+						.hasAnyAuthority(UserRoleConst.ADMIN_ROLE, UserRoleConst.STUDENT_ROLE);
+					
+					auth.anyRequest().hasAuthority(UserRoleConst.ADMIN_ROLE);
+					
+//					auth.anyRequest().authenticated();
 				})
 				.sessionManagement( auth -> {
 					auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

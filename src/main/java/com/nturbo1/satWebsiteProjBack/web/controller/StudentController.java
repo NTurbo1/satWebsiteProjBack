@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nturbo1.satWebsiteProjBack.service.UserService;
 import com.nturbo1.satWebsiteProjBack.service.dto.request.UserRequestDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.response.UserResponseDto;
+import com.nturbo1.satWebsiteProjBack.web.controller.constants.RestApiConst;
 import com.nturbo1.satWebsiteProjBack.web.versioning.ApiVersion;
 
 import lombok.AllArgsConstructor;

@@ -1,5 +1,6 @@
 package com.nturbo1.satWebsiteProjBack.service.courses;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,11 +32,25 @@ public class CourseService {
 
 	public Optional<CourseResponseDto> getCourseById(Long id) {
 		return Optional.of(
-      courseMapper
-        .map(courseRepository.findById(id).get())
-    );
+	      courseMapper
+	        .map(courseRepository.findById(id).get())
+	    );
 	}
 
+	public List<CourseResponseDto> getAllCoursesWithStatus(String status) {
+		List<Course> courses = new ArrayList<Course>();
+		
+		if (status.equals(CourseStatus.ACTIVE)) {
+			courses = courseRepository.getAllActiveCourses();
+		} else if (status.equals(CourseStatus.INACTIVE)) {
+			courses = courseRepository.getAllInactiveCourses();
+		} else {
+			courses = courseRepository.getAllPausedCourses();
+		}
+		
+		return courseMapper.mapToCourseResponseDtoList(courses);
+	}
+	
 	public CourseResponseDto updateCourse(Long id, CourseRequestDto courseRequestDto) {
 		if (courseRepository.existsById(id)) {
       Course updatedCourse = courseMapper.map(courseRequestDto);

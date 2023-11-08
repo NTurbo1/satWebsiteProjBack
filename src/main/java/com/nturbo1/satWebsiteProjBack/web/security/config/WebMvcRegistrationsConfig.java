@@ -6,7 +6,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import com.nturbo1.satWebsiteProjBack.web.versioning.ApiVersionRequestMappingHandlerMapping;
 
-//@Configuration
+@Configuration
 public class WebMvcRegistrationsConfig implements WebMvcRegistrations {
 	
 	@Override
