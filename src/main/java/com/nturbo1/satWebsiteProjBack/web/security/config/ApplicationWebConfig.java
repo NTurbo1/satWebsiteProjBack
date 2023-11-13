@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.nturbo1.satWebsiteProjBack.service.UserService;
+import com.nturbo1.satWebsiteProjBack.service.users.UserService;
 
 @Configuration
 @EnableWebMvc

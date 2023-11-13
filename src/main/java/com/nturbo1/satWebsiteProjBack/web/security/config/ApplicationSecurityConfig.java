@@ -7,9 +7,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -23,10 +26,12 @@ import com.nturbo1.satWebsiteProjBack.web.controller.constants.RestApiConst;
 import com.nturbo1.satWebsiteProjBack.web.controller.constants.UserRoleConst;
 import com.nturbo1.satWebsiteProjBack.web.security.jwtutils.JwtAuthenticationFilter;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @AllArgsConstructor
 public class ApplicationSecurityConfig {
 	
@@ -46,10 +51,11 @@ public class ApplicationSecurityConfig {
 				.cors(Customizer.withDefaults())
 				.authorizeHttpRequests( auth -> {
 					
-					auth.requestMatchers(RestApiConst.AUTH_API_ROOT_PATH + "/**").permitAll();
+					auth.requestMatchers(RestApiConst.AUTH_API_ROOT_PATH + "/**")
+						.permitAll();
 					
-					auth.requestMatchers(RestApiConst.STUDENT_API_ROOT_PATH)
-						.hasAuthority(UserRoleConst.ADMIN_ROLE);
+					auth.requestMatchers(RestApiConst.CHARGE_PAYMENT_PATH)
+						.hasAuthority(UserRoleConst.STUDENT_ROLE);
 					
 					auth.
 						requestMatchers(request -> {
@@ -58,13 +64,18 @@ public class ApplicationSecurityConfig {
 								return false;
 							
 							String param = request.getParameter("status");
+							
+							if (param == null) return false;
+							
 							return param.equals(CourseStatus.ACTIVE);
 						})
-						.hasAnyAuthority(UserRoleConst.ADMIN_ROLE, UserRoleConst.STUDENT_ROLE);
+						.permitAll();
+					
+					auth.requestMatchers(
+							RestApiConst.STUDENT_API_ROOT_PATH + "/**")
+						.authenticated();
 					
 					auth.anyRequest().hasAuthority(UserRoleConst.ADMIN_ROLE);
-					
-//					auth.anyRequest().authenticated();
 				})
 				.sessionManagement( auth -> {
 					auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

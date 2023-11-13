@@ -1,6 +1,7 @@
-package com.nturbo1.satWebsiteProjBack.service;
+package com.nturbo1.satWebsiteProjBack.service.users;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -10,24 +11,29 @@ import com.nturbo1.satWebsiteProjBack.service.dto.request.StudentRequestDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.response.StudentResponseDto;
 import com.nturbo1.satWebsiteProjBack.service.mapper.StudentMapper;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 @Service
+@Data
+@AllArgsConstructor
 public class StudentService {
 	
 	private final UserRepository userRepository;
 	private final StudentMapper studentMapper;
 	
-	public StudentService(UserRepository userRepository, StudentMapper studentMapper) {
-		this.userRepository = userRepository;
-		this.studentMapper = studentMapper;
-	}
-	
-	public List<StudentResponseDto> readAll() {
+	public List<StudentResponseDto> readAllStudents() {
 		return studentMapper
-					.mapToStudentResponseDtoList(userRepository.findAll());
+					.mapToStudentResponseDtoList(userRepository.findAllStudents());
 	}
 	
 	public StudentResponseDto readById(Long id) {
-		return studentMapper.map(userRepository.findById(id).get());
+		Optional<User> student = userRepository.findStudentByUserId(id);
+		
+		if (student.isPresent())
+			return studentMapper.map(student.get());
+		else
+			throw new RuntimeException("Student with id = " + id + " doesn't exist.");
 	}
 	
 	public StudentResponseDto update(StudentRequestDto studentRequestDto) {

@@ -13,7 +13,7 @@ public record CourseRequestDto(
 	String type,
 	Date createdDate,
 	String status,
-	Double price,
+	Integer price,
 	List<CourseSection> sections,
 	List<User> enrolledStudents
 ) {

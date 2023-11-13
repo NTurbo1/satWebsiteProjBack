@@ -2,6 +2,8 @@ package com.nturbo1.satWebsiteProjBack.repository.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,6 +31,7 @@ public class Test {
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "creator_id")
+	@JsonBackReference
 	private User creator;
 	
 	@OneToMany(mappedBy = "test")

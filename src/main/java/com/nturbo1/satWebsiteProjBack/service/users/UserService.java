@@ -1,4 +1,4 @@
-package com.nturbo1.satWebsiteProjBack.service;
+package com.nturbo1.satWebsiteProjBack.service.users;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,11 +23,6 @@ public class UserService {
 	public List<UserResponseDto> readAll() {
 		return userMapper
 					.mapToUserResponseDtoList(userRepository.findAll());
-	}
-	
-	public List<UserResponseDto> readAllStudents() {
-		return userMapper
-					.mapToUserResponseDtoList(userRepository.findAllStudents());
 	}
 	
 	public UserResponseDto readById(Long id) {

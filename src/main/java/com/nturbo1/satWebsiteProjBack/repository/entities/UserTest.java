@@ -2,6 +2,7 @@ package com.nturbo1.satWebsiteProjBack.repository.entities;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.nturbo1.satWebsiteProjBack.repository.entities.compositeKeys.UserTestId;
 
 import jakarta.persistence.Column;
@@ -29,6 +30,7 @@ public class UserTest {
     
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
+	@JsonBackReference
 	private User user;
 	
 	@ManyToOne

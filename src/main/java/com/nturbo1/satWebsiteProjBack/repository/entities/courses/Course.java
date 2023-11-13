@@ -3,6 +3,7 @@ package com.nturbo1.satWebsiteProjBack.repository.entities.courses;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.nturbo1.satWebsiteProjBack.repository.entities.User;
 
 import jakarta.persistence.CascadeType;
@@ -34,7 +35,7 @@ public class Course {
 	@Column(name = "created_date")
 	private Date createdDate;
 	private String status;
-	private Double price;
+	private Integer price;
 	
 	@OneToMany(
 			mappedBy = "course",
@@ -43,6 +44,7 @@ public class Course {
 	List<CourseSection> sections;
 	
 	@ManyToMany(mappedBy = "enrolledCourses")
+	@JsonBackReference
 	private List<User> enrolledStudents;
 	
 	

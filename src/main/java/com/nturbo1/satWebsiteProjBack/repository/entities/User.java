@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.nturbo1.satWebsiteProjBack.repository.entities.courses.Course;
 
 import jakarta.persistence.CascadeType;
@@ -28,6 +29,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -36,12 +38,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
+@Getter
 public class User implements UserDetails {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 4115279062207506945L;
+//	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
@@ -72,13 +73,16 @@ public class User implements UserDetails {
 	    joinColumns = @JoinColumn(name = "user_id"),
 	    inverseJoinColumns = @JoinColumn(name = "course_id")
 	)
+	@JsonManagedReference
 	private List<Course> enrolledCourses;
 	
 	@OneToMany(mappedBy = "creator", 
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JsonManagedReference
 	private List<Test> createdTests;
 	
 	@OneToMany(mappedBy = "user")
+	@JsonManagedReference
 	private List<UserTest> userTests;
 	
 	@OneToOne(mappedBy = "user",

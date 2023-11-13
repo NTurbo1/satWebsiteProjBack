@@ -1,4 +1,4 @@
-package com.nturbo1.satWebsiteProjBack.service;
+package com.nturbo1.satWebsiteProjBack.service.users;
 
 import java.util.List; 
 
