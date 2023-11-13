@@ -5,6 +5,9 @@ public class RestApiConst {
 	public static final String API_ROOT_PATH = "/api/{apiVersion}";
 
 	public static final String STUDENT_API_ROOT_PATH = API_ROOT_PATH + "/students";
+	
+//	public static final String STUDENT_COURSES_API_PATH = STUDENT_API_ROOT_PATH + 
+//			"/{studentId:\\d+}/courses";
 
 	public static final String TEST_API_ROOT_PATH = API_ROOT_PATH + "/tests";
   

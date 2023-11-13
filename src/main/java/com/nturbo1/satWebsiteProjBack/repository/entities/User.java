@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.nturbo1.satWebsiteProjBack.repository.entities.courses.Course;
 
@@ -39,6 +40,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "users")
 @Getter
+@JsonIgnoreProperties({"enrolledCourses", "createdTests", "userTests"})
 public class User implements UserDetails {
 
 //	private static final long serialVersionUID = 4115279062207506945L;
@@ -67,7 +69,8 @@ public class User implements UserDetails {
 	private List<Role> roles;
 	
 	@ManyToMany(
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+			fetch = FetchType.LAZY)
 	@JoinTable(
 		name = "users_courses",
 	    joinColumns = @JoinColumn(name = "user_id"),

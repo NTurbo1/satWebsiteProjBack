@@ -19,6 +19,7 @@ import com.nturbo1.satWebsiteProjBack.service.dto.request.StudentRequestDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.request.UserRequestDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.response.StudentResponseDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.response.UserResponseDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.CourseResponseDto;
 import com.nturbo1.satWebsiteProjBack.service.users.StudentService;
 import com.nturbo1.satWebsiteProjBack.service.users.UserService;
 import com.nturbo1.satWebsiteProjBack.web.controller.constants.RestApiConst;
@@ -45,6 +46,18 @@ public class StudentController {
 	@PreAuthorize("hasAuthority('ADMIN') or #id == authentication.principal.userId")
 	public ResponseEntity<StudentResponseDto> readById(@PathVariable Long id) {
 		return ResponseEntity.ok(studentService.readById(id));
+	}
+	
+	@GetMapping(value = "/{studentId:\\d+}/courses")
+	@PreAuthorize("hasAuthority('ADMIN') or #studentId == authentication.principal.userId")
+	public ResponseEntity<List<CourseResponseDto>> getAllEnrolledCoursesByStudentId(
+			@PathVariable Long studentId) {
+		
+		return new ResponseEntity<List<CourseResponseDto>>(
+				studentService.getAllEnrolledCoursesByStudentId(studentId), 
+				HttpStatus.OK
+			);
+		
 	}
 	
 	@PutMapping(value = "/{id:\\d+}")

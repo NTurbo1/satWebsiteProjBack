@@ -2,6 +2,9 @@ package com.nturbo1.satWebsiteProjBack.repository.entities.courses;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +34,7 @@ public class CourseSection {
 	
 	@ManyToOne
 	@JoinColumn(name = "course_id")
+	@JsonBackReference
 	private Course course;
 	
 	@OneToMany(
