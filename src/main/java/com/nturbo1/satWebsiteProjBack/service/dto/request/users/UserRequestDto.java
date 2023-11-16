@@ -1,7 +1,6 @@
-package com.nturbo1.satWebsiteProjBack.service.dto.request;
+package com.nturbo1.satWebsiteProjBack.service.dto.request.users;
 
 public record UserRequestDto(
-		Long userId,
 		String firstName,
 		String lastName,
 		String userPassword,

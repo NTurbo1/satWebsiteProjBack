@@ -1,12 +1,20 @@
 package com.nturbo1.satWebsiteProjBack.service.courses;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.nturbo1.satWebsiteProjBack.repository.courses.CourseRepository;
 import com.nturbo1.satWebsiteProjBack.repository.courses.CourseSectionRepository;
+import com.nturbo1.satWebsiteProjBack.repository.entities.courses.Course;
 import com.nturbo1.satWebsiteProjBack.repository.entities.courses.CourseSection;
+import com.nturbo1.satWebsiteProjBack.service.courses.utils.CourseRelatedEntitiesBeforeCRUDCheck;
+import com.nturbo1.satWebsiteProjBack.service.courses.utils.ExistingCourseRelatedEntities;
+import com.nturbo1.satWebsiteProjBack.service.dto.request.courses.CourseSectionRequestDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.CourseSectionResponseDto;
+import com.nturbo1.satWebsiteProjBack.service.mapper.courses.CourseSectionMapper;
 
 import lombok.Data;
 
@@ -15,33 +23,91 @@ import lombok.Data;
 public class CourseSectionService {
 	
 	private final CourseSectionRepository courseSectionRepository;
+	private final CourseRepository courseRepository;
+	private final CourseSectionMapper courseSectionMapper;
+	
+	private final CourseRelatedEntitiesBeforeCRUDCheck courseRelatedEntitiesBeforeCRUDCheck;
 
-	public CourseSection createCourseSection(CourseSection courseSection) {
-		return courseSectionRepository.save(courseSection);
-	}
-
-	public List<CourseSection> getAllCourseSections() {
-		return courseSectionRepository.findAll();
-	}
-
-	public Optional<CourseSection> getCourseSectionById(Long id) {
-		return courseSectionRepository.findById(id);
-	}
-
-	public CourseSection updateCourseSection(Long id, CourseSection courseSection) {
-		if (courseSectionRepository.existsById(id)) {
-			courseSection.setId(id);
-			return courseSectionRepository.save(courseSection);
-		} else {
-			throw new IllegalArgumentException("CourseSection with id " + id + " does not exist.");
+	public CourseSectionResponseDto createCourseSection(
+			Long courseId, CourseSectionRequestDto courseSectionRequestDto) {
+		
+		CourseSection newCourseSection = courseSectionMapper.map(courseSectionRequestDto);
+		// Checks for parentCourse existence
+		Course existingCourse = 
+				courseRelatedEntitiesBeforeCRUDCheck.returnExistingCourse(courseId);
+		
+		List<CourseSection> existingCourseSections = existingCourse.getSections();
+		
+		if (existingCourseSections == null) {
+			existingCourseSections = new ArrayList<CourseSection>();		
+			existingCourse.setSections(existingCourseSections);	
 		}
+		
+		newCourseSection.setCourse(existingCourse);
+		existingCourse.getSections().add(newCourseSection);
+		
+		return courseSectionMapper.map(
+				courseSectionRepository.save(newCourseSection));
 	}
 
-	public void deleteCourseSection(Long id) {
-		if (courseSectionRepository.existsById(id)) {
-			courseSectionRepository.deleteById(id);
-		} else {
-			throw new IllegalArgumentException("CourseSection with id " + id + " does not exist.");
-		}
+	public List<CourseSectionResponseDto> getAllCourseSectionsByCourseId(Long courseId) {
+		
+		// Checks for parentCourse existence
+		courseRelatedEntitiesBeforeCRUDCheck.returnExistingCourse(courseId);
+		
+		return courseSectionMapper
+				.mapToCourseSectionResponseDtoList(
+						courseSectionRepository
+							.findCourseSectionsByCourseId(courseId));
+	}
+
+	public Optional<CourseSectionResponseDto> getCourseSectionById(
+			Long courseId, Long courseSectionId) {
+		
+		// Checks if the parentCourse and child courseSection exists.
+		// Also if the parent course has the child courseSection.
+		ExistingCourseRelatedEntities existingCourseAndCourseSection =
+				courseRelatedEntitiesBeforeCRUDCheck
+					.returnExistingCourseAndCourseSection(courseId, courseSectionId);
+		
+		return Optional.of(
+				courseSectionMapper.map(
+						existingCourseAndCourseSection.getExistingCourseSection()));
+	}
+
+	public CourseSectionResponseDto updateCourseSection(
+			Long courseId, Long courseSectionId,
+			CourseSectionRequestDto courseSectionRequestDto) {
+		
+		// Checks if the parentCourse and child courseSection exists.
+		// Also if the parent course has the child courseSection.
+		ExistingCourseRelatedEntities existingCourseAndCourseSection =
+				courseRelatedEntitiesBeforeCRUDCheck
+					.returnExistingCourseAndCourseSection(courseId, courseSectionId);
+				
+		CourseSection updatedCourseSection = 
+				existingCourseAndCourseSection.getExistingCourseSection();
+		
+		courseSectionMapper
+			.updateCourseSectionFromDto(
+					courseSectionRequestDto, updatedCourseSection);
+		
+		return courseSectionMapper.map(
+				courseSectionRepository.save(updatedCourseSection));
+	}
+
+	public void deleteCourseSection(Long courseId, Long courseSectionId) {
+		// Checks if the parentCourse and child courseSection exists.
+		// Also if the parent course has the child courseSection.
+		ExistingCourseRelatedEntities existingCourseAndCourseSection =
+				courseRelatedEntitiesBeforeCRUDCheck
+					.returnExistingCourseAndCourseSection(courseId, courseSectionId);	
+	 	
+		existingCourseAndCourseSection
+			.getExistingCourse()
+			.getSections()
+			.remove(existingCourseAndCourseSection.getExistingCourseSection());
+		
+		courseSectionRepository.deleteById(courseSectionId);
 	}
 }

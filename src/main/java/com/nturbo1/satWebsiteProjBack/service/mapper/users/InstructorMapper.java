@@ -1,12 +1,12 @@
-package com.nturbo1.satWebsiteProjBack.service.mapper;
+package com.nturbo1.satWebsiteProjBack.service.mapper.users;
 
 import java.util.List;
 
 import org.mapstruct.Mapper;
 
 import com.nturbo1.satWebsiteProjBack.repository.entities.User;
-import com.nturbo1.satWebsiteProjBack.service.dto.request.InstructorRequestDto;
-import com.nturbo1.satWebsiteProjBack.service.dto.response.InstructorResponseDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.request.users.InstructorRequestDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.users.InstructorResponseDto;
 
 @Mapper(componentModel = "spring")
 public interface InstructorMapper {

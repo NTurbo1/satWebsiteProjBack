@@ -1,10 +1,10 @@
-package com.nturbo1.satWebsiteProjBack.service.dto.response;
+package com.nturbo1.satWebsiteProjBack.service.dto.request.users;
 
 import java.util.List;
 
 import com.nturbo1.satWebsiteProjBack.repository.entities.Test;
 
-public record InstructorResponseDto(
+public record InstructorRequestDto(
 		Long userId,
 		String firstName,
 		String lastName,

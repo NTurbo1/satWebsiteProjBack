@@ -6,7 +6,7 @@ import com.nturbo1.satWebsiteProjBack.repository.entities.courses.Course;
 import com.nturbo1.satWebsiteProjBack.repository.entities.courses.Topic;
 
 public record CourseSectionResponseDto (
-  Long id,
+	Long id,
 	String name,
 	String description,
 	Course course,

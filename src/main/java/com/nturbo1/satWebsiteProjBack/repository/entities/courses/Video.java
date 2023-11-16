@@ -2,6 +2,8 @@ package com.nturbo1.satWebsiteProjBack.repository.entities.courses;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +29,7 @@ public class Video {
 	private String link;
 	
 	@ManyToMany(mappedBy = "videos")
+	@JsonBackReference
 	private List<Topic> topics;
 
 }

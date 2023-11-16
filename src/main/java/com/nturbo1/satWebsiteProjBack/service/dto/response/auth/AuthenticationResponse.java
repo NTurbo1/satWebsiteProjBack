@@ -1,4 +1,4 @@
-package com.nturbo1.satWebsiteProjBack.service.dto.response;
+package com.nturbo1.satWebsiteProjBack.service.dto.response.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

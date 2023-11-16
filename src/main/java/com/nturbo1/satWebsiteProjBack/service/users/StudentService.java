@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service;
 import com.nturbo1.satWebsiteProjBack.repository.UserRepository;
 import com.nturbo1.satWebsiteProjBack.repository.courses.CourseRepository;
 import com.nturbo1.satWebsiteProjBack.repository.entities.User;
-import com.nturbo1.satWebsiteProjBack.service.dto.request.StudentRequestDto;
-import com.nturbo1.satWebsiteProjBack.service.dto.response.StudentResponseDto;
-import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.CourseResponseDto;
-import com.nturbo1.satWebsiteProjBack.service.mapper.StudentMapper;
+import com.nturbo1.satWebsiteProjBack.service.dto.request.users.StudentRequestDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.GeneralCourseResponseDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.users.StudentResponseDto;
 import com.nturbo1.satWebsiteProjBack.service.mapper.courses.CourseMapper;
+import com.nturbo1.satWebsiteProjBack.service.mapper.courses.GeneralCourseMapper;
+import com.nturbo1.satWebsiteProjBack.service.mapper.users.StudentMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class StudentService {
 	private final CourseRepository courseRepository;
 	private final StudentMapper studentMapper;
 	private final CourseMapper courseMapper;
+	private final GeneralCourseMapper generalCourseMapper;
 	
 	public List<StudentResponseDto> readAllStudents() {
 		return studentMapper
@@ -41,16 +43,26 @@ public class StudentService {
 			throw new RuntimeException("Student with id = " + id + " doesn't exist.");
 	}
 	
-	public List<CourseResponseDto> getAllEnrolledCoursesByStudentId(Long studentId) {
-		return courseMapper.mapToCourseResponseDtoList(
+	public List<GeneralCourseResponseDto> getAllEnrolledCoursesByStudentId(Long studentId) {
+		return generalCourseMapper.mapToGeneralCourseResponseDtoList(
 				courseRepository.findAllEnrolledCoursesByStudentId(studentId));
 	}
 	
-	public StudentResponseDto update(StudentRequestDto studentRequestDto) {
+	public StudentResponseDto update(Long studentId, StudentRequestDto studentRequestDto) {
 		
-		User student = studentMapper.map(studentRequestDto);
+		Optional<User> existingStudent = userRepository.findStudentByUserId(studentId);
 		
-		return studentMapper.map(userRepository.save(student));
+		if (existingStudent.isPresent()) {
+			
+			User updatedStudent = existingStudent.get();
+			studentMapper.updateStudentFromDto(studentRequestDto, updatedStudent);
+			
+			return studentMapper.map(userRepository.save(updatedStudent));
+			
+		} else {
+			throw new IllegalArgumentException("Student with id = " + studentId +
+					" doesn't exist.");
+		}
 	}
 	
 	public void delete(Long id) {

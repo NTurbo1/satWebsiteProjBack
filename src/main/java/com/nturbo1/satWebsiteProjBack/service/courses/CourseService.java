@@ -7,37 +7,47 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.nturbo1.satWebsiteProjBack.repository.courses.CourseRepository;
+import com.nturbo1.satWebsiteProjBack.repository.courses.CourseSectionRepository;
 import com.nturbo1.satWebsiteProjBack.repository.entities.courses.Course;
+import com.nturbo1.satWebsiteProjBack.service.courses.utils.CourseRelatedEntitiesBeforeCRUDCheck;
 import com.nturbo1.satWebsiteProjBack.service.dto.request.courses.CourseRequestDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.CourseResponseDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.GeneralCourseResponseDto;
 import com.nturbo1.satWebsiteProjBack.service.mapper.courses.CourseMapper;
+import com.nturbo1.satWebsiteProjBack.service.mapper.courses.GeneralCourseMapper;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Service
 @Data
+@AllArgsConstructor
 public class CourseService {
 	
 	private final CourseRepository courseRepository;
-  private final CourseMapper courseMapper;
+	private final CourseSectionRepository courseSectionRepository;
+    private final CourseMapper courseMapper;
+    private final GeneralCourseMapper generalCourseMapper;
+    
+    private final CourseRelatedEntitiesBeforeCRUDCheck courseRelatedEntitiesBeforeCRUDCheck;
 	
 	public CourseResponseDto createCourse(CourseRequestDto courseRequestDto) {
-    Course newCourse = courseMapper.map(courseRequestDto);
+		Course newCourse = courseMapper.map(courseRequestDto);
 		return courseMapper.map(courseRepository.save(newCourse));
 	}
 
-	public List<CourseResponseDto> getAllCourses() {
-		return courseMapper.mapToCourseResponseDtoList(courseRepository.findAll());
+	public List<GeneralCourseResponseDto> getAllCourses() {
+		return generalCourseMapper.mapToGeneralCourseResponseDtoList(courseRepository.findAll());
 	}
 
 	public Optional<CourseResponseDto> getCourseById(Long id) {
-		return Optional.of(
-	      courseMapper
-	        .map(courseRepository.findById(id).get())
-	    );
+		Course existingCourse = 
+				courseRelatedEntitiesBeforeCRUDCheck.returnExistingCourse(id);
+		
+		return Optional.of(courseMapper.map(existingCourse));
 	}
 
-	public List<CourseResponseDto> getAllCoursesWithStatus(String status) {
+	public List<GeneralCourseResponseDto> getAllCoursesWithStatus(String status) {
 		List<Course> courses = new ArrayList<Course>();
 		
 		if (status.equals(CourseStatus.ACTIVE)) {
@@ -48,16 +58,16 @@ public class CourseService {
 			courses = courseRepository.getAllPausedCourses();
 		}
 		
-		return courseMapper.mapToCourseResponseDtoList(courses);
+		return generalCourseMapper.mapToGeneralCourseResponseDtoList(courses);
 	}
 	
 	public CourseResponseDto updateCourse(Long id, CourseRequestDto courseRequestDto) {
-		if (courseRepository.existsById(id)) {
-      Course updatedCourse = courseMapper.map(courseRequestDto);
-			return courseMapper.map(courseRepository.save(updatedCourse));
-		} else {
-			throw new IllegalArgumentException("Course with id " + id + " does not exist.");
-		}
+		
+		Course updatedCourse = 
+				courseRelatedEntitiesBeforeCRUDCheck.returnExistingCourse(id);
+		courseMapper.updateCourseFromDto(courseRequestDto, updatedCourse);
+		
+		return courseMapper.map(courseRepository.save(updatedCourse));
 	}
 
 	public void deleteCourse(Long id) {

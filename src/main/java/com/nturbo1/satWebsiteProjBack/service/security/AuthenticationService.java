@@ -13,9 +13,9 @@ import com.nturbo1.satWebsiteProjBack.repository.TokenRepository;
 import com.nturbo1.satWebsiteProjBack.repository.UserRepository;
 import com.nturbo1.satWebsiteProjBack.repository.entities.Token;
 import com.nturbo1.satWebsiteProjBack.repository.entities.User;
-import com.nturbo1.satWebsiteProjBack.service.dto.request.AuthenticationRequest;
-import com.nturbo1.satWebsiteProjBack.service.dto.request.RegisterRequest;
-import com.nturbo1.satWebsiteProjBack.service.dto.response.AuthenticationResponse;
+import com.nturbo1.satWebsiteProjBack.service.dto.request.auth.AuthenticationRequest;
+import com.nturbo1.satWebsiteProjBack.service.dto.request.auth.RegisterRequest;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.auth.AuthenticationResponse;
 
 import lombok.AllArgsConstructor;
 

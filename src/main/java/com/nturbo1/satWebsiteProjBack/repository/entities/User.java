@@ -43,8 +43,8 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties({"enrolledCourses", "createdTests", "userTests"})
 public class User implements UserDetails {
 
-//	private static final long serialVersionUID = 4115279062207506945L;
-//	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4115279062207506945L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")

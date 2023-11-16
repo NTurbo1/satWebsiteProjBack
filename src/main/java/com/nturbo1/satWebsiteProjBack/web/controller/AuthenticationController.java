@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nturbo1.satWebsiteProjBack.service.dto.request.AuthenticationRequest;
-import com.nturbo1.satWebsiteProjBack.service.dto.request.RegisterRequest;
-import com.nturbo1.satWebsiteProjBack.service.dto.response.AuthenticationResponse;
+import com.nturbo1.satWebsiteProjBack.service.dto.request.auth.AuthenticationRequest;
+import com.nturbo1.satWebsiteProjBack.service.dto.request.auth.RegisterRequest;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.auth.AuthenticationResponse;
 import com.nturbo1.satWebsiteProjBack.service.security.AuthenticationService;
 import com.nturbo1.satWebsiteProjBack.web.controller.constants.RestApiConst;
 import com.nturbo1.satWebsiteProjBack.web.versioning.ApiVersion;

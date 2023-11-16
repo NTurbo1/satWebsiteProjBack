@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.nturbo1.satWebsiteProjBack.repository.entities.User;
 
@@ -26,6 +27,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+//@JsonIgnoreProperties({"sections"})
 public class Course {
 	
 	@Id 
@@ -42,7 +44,9 @@ public class Course {
 	@OneToMany(
 			mappedBy = "course",
 			cascade = CascadeType.ALL,
-			orphanRemoval = true)
+			orphanRemoval = true,
+			fetch = FetchType.EAGER 
+			)
 	@JsonManagedReference
 	List<CourseSection> sections;
 	

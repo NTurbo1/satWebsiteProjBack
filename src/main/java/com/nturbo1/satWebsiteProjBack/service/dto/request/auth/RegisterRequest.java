@@ -1,4 +1,4 @@
-package com.nturbo1.satWebsiteProjBack.service.dto.request;
+package com.nturbo1.satWebsiteProjBack.service.dto.request.auth;
 
 import java.util.List;
 

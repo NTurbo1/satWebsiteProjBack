@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.nturbo1.satWebsiteProjBack.repository.UserRepository;
 import com.nturbo1.satWebsiteProjBack.repository.entities.User;
-import com.nturbo1.satWebsiteProjBack.service.dto.request.InstructorRequestDto;
-import com.nturbo1.satWebsiteProjBack.service.dto.response.InstructorResponseDto;
-import com.nturbo1.satWebsiteProjBack.service.mapper.InstructorMapper;
+import com.nturbo1.satWebsiteProjBack.service.dto.request.users.InstructorRequestDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.users.InstructorResponseDto;
+import com.nturbo1.satWebsiteProjBack.service.mapper.users.InstructorMapper;
 
 @Service
 public class InstructorService {

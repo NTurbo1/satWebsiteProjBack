@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.nturbo1.satWebsiteProjBack.repository.UserRepository;
 import com.nturbo1.satWebsiteProjBack.repository.entities.User;
-import com.nturbo1.satWebsiteProjBack.service.dto.request.UserRequestDto;
-import com.nturbo1.satWebsiteProjBack.service.dto.response.UserResponseDto;
-import com.nturbo1.satWebsiteProjBack.service.mapper.UserMapper;
+import com.nturbo1.satWebsiteProjBack.service.dto.request.users.UserRequestDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.users.UserResponseDto;
+import com.nturbo1.satWebsiteProjBack.service.mapper.users.UserMapper;
 
 import lombok.Data;
 
@@ -43,14 +43,20 @@ public class UserService {
 		return Optional.of(userRepository.findByEmail(email).get());
 	}
 	
-	public UserResponseDto update(UserRequestDto userRequestDto) {
+	public UserResponseDto update(Long userId, UserRequestDto userRequestDto) {
 		
-		User user = userMapper.map(userRequestDto);
+		Optional<User> existingUser = userRepository.findById(userId);
 		
-		if (userRepository.existsById(user.getUserId()))
-			return userMapper.map(userRepository.save(user));
-		else
-			throw new RuntimeException("User with id = " + user.getUserId() + " doesn't exist.");
+		if (existingUser.isPresent()) {
+		
+			User updatedUser = existingUser.get();
+			userMapper.updateUserFromDto(userRequestDto, updatedUser);
+			
+			return userMapper.map(userRepository.save(updatedUser));
+		
+		} else {
+			throw new RuntimeException("User with id = " + userId + " doesn't exist.");
+		}
 	}
 	
 	public void delete(Long id) {

@@ -1,4 +1,4 @@
-package com.nturbo1.satWebsiteProjBack.service.dto.response;
+package com.nturbo1.satWebsiteProjBack.service.dto.response.users;
 
 import java.util.List;
 

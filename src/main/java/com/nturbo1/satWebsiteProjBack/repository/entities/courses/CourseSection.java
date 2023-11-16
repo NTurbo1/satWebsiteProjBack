@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,7 +33,7 @@ public class CourseSection {
 	private String description;
 	
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "course_id")
 	@JsonBackReference
 	private Course course;
@@ -42,5 +43,6 @@ public class CourseSection {
 			cascade = CascadeType.ALL,
 			orphanRemoval = true
 	)
+	@JsonManagedReference
 	private List<Topic> topics;
 }
