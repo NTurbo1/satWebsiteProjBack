@@ -7,12 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -26,7 +24,6 @@ import com.nturbo1.satWebsiteProjBack.web.controller.constants.RestApiConst;
 import com.nturbo1.satWebsiteProjBack.web.controller.constants.UserRoleConst;
 import com.nturbo1.satWebsiteProjBack.web.security.jwtutils.JwtAuthenticationFilter;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 
 @Configuration
@@ -57,6 +54,7 @@ public class ApplicationSecurityConfig {
 					auth.requestMatchers(RestApiConst.CHARGE_PAYMENT_PATH)
 						.hasAuthority(UserRoleConst.STUDENT_ROLE);
 					
+					// Everyone can see the general info about available(status='ACTIVE') courses
 					auth.
 						requestMatchers(request -> {
 							String url = request.getRequestURL().toString();
@@ -73,6 +71,10 @@ public class ApplicationSecurityConfig {
 					
 					auth.requestMatchers(
 							RestApiConst.STUDENT_API_ROOT_PATH + "/**")
+						.authenticated();
+					
+					auth.requestMatchers(
+							RestApiConst.COURSES_API_ROOT_PATH + "/**")
 						.authenticated();
 					
 					auth.anyRequest().hasAuthority(UserRoleConst.ADMIN_ROLE);

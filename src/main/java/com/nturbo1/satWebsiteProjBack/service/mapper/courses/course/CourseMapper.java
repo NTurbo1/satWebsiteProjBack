@@ -1,4 +1,4 @@
-package com.nturbo1.satWebsiteProjBack.service.mapper.courses;
+package com.nturbo1.satWebsiteProjBack.service.mapper.courses.course;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.mapstruct.NullValueCheckStrategy;
 
 import com.nturbo1.satWebsiteProjBack.repository.entities.courses.Course;
 import com.nturbo1.satWebsiteProjBack.service.dto.request.courses.CourseRequestDto;
-import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.CourseResponseDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.course.CourseResponseDto;
 
 @Mapper(componentModel = "spring",
 		nullValueCheckStrategy = NullValueCheckStrategy.ON_IMPLICIT_CONVERSION

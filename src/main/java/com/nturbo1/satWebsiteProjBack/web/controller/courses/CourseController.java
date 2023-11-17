@@ -1,11 +1,11 @@
 package com.nturbo1.satWebsiteProjBack.web.controller.courses;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,11 +22,11 @@ import com.nturbo1.satWebsiteProjBack.service.courses.TopicService;
 import com.nturbo1.satWebsiteProjBack.service.dto.request.courses.CourseRequestDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.request.courses.CourseSectionRequestDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.request.courses.TopicRequestDto;
-import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.CourseResponseDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.CourseSectionResponseDto;
-import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.GeneralCourseResponseDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.TopicResponseDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.course.CourseResponseDto;
 import com.nturbo1.satWebsiteProjBack.web.controller.constants.RestApiConst;
+import com.nturbo1.satWebsiteProjBack.web.controller.utils.AuthorizationUtil;
 import com.nturbo1.satWebsiteProjBack.web.versioning.ApiVersion;
 
 import lombok.Data;
@@ -40,8 +40,11 @@ public class CourseController {
 	private final CourseService courseService;
 	private final CourseSectionService courseSectionService;
 	private final TopicService topicService;
+	
+	private final AuthorizationUtil authorizationUtil;
 
 	@PostMapping
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Void> createCourse(
 			@RequestBody CourseRequestDto courseRequestDto) {
 		courseService.createCourse(courseRequestDto);
@@ -49,13 +52,14 @@ public class CourseController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<GeneralCourseResponseDto>> getAllCourses(
+	public ResponseEntity<List<CourseResponseDto>> getAllCourses(
 			@RequestParam(required = false) String status) {
 		
-		List<GeneralCourseResponseDto> courses = new ArrayList<>();
-		
+		List<CourseResponseDto> courses;
+		String role = authorizationUtil.getAuthenticatedUserRole();
+			
 		if (status != null) {
-			courses = courseService.getAllCoursesWithStatus(status);
+			courses = courseService.getAllCoursesWithStatus(status, role);
 		} else {
 			courses = courseService.getAllCourses();
 		}
@@ -64,13 +68,17 @@ public class CourseController {
 	}
 	
 	@GetMapping(value = "/{id:\\d+}")
+	@PreAuthorize("hasAuthority('ADMIN') or @courseService.isEnrolled(#id, authentication.principal.userId)")
 	public ResponseEntity<CourseResponseDto> getCourseById(@PathVariable Long id) {
+		
+		String role = authorizationUtil.getAuthenticatedUserRole();
+		
 		return ResponseEntity.ok(
-			courseService.getCourseById(id).get()
-		);
+			courseService.getCourseById(id, role).get());
 	}
 	
 	@PutMapping(value = "/{id:\\d+}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<CourseResponseDto> updateCourse(@PathVariable Long id, 
 			@RequestBody CourseRequestDto courseRequestDto) {
 		return ResponseEntity.ok(
@@ -79,12 +87,14 @@ public class CourseController {
 	}
 	
 	@DeleteMapping(value = "/{id:\\d+}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
 		courseService.deleteCourse(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
 	@GetMapping(value = "/{courseId:\\d+}/course-sections")
+	@PreAuthorize("hasAuthority('ADMIN') or @courseService.isEnrolled(#courseId, authentication.principal.userId)")
 	public ResponseEntity<List<CourseSectionResponseDto>> getCourseSectionsByCourseId(
 			@PathVariable Long courseId) {
 		
@@ -94,7 +104,8 @@ public class CourseController {
 	}
 	
 	@GetMapping(value = "/{courseId:\\d+}/course-sections/{courseSectionId:\\d+}")
-	public ResponseEntity<CourseSectionResponseDto> getCourseSectionsByCourseId(
+	@PreAuthorize("hasAuthority('ADMIN') or @courseService(#courseId, authentication.principal.userId)")
+	public ResponseEntity<CourseSectionResponseDto> getCourseSectionByCourseId(
 			@PathVariable Long courseId, @PathVariable Long courseSectionId) {
 		
 		return new ResponseEntity<CourseSectionResponseDto>(
@@ -105,6 +116,7 @@ public class CourseController {
 	}
 	
 	@PostMapping(value = "/{courseId:\\d+}/course-sections")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<CourseSectionResponseDto> createCourseSection(
 			@PathVariable Long courseId, 
 			@RequestBody CourseSectionRequestDto courseSectionRequestDto) {
@@ -116,6 +128,7 @@ public class CourseController {
 	}
 	
 	@PutMapping(value = "/{courseId:\\d+}/course-sections/{courseSectionId:\\d+}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<CourseSectionResponseDto> updateCourseSection(
 			@PathVariable Long courseId, @PathVariable Long courseSectionId,
 			@RequestBody CourseSectionRequestDto courseSectionRequestDto) {
@@ -130,6 +143,7 @@ public class CourseController {
 	}
 	
 	@DeleteMapping(value = "/{courseId:\\d+}/course-sections/{courseSectionId:\\d+}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Void> deleteCourseSection(
 			@PathVariable Long courseId, @PathVariable Long courseSectionId) {
 	
@@ -139,6 +153,7 @@ public class CourseController {
 	}
   
 	@GetMapping(value = "/{courseId:\\d+}/topics")
+	@PreAuthorize("hasAuthority('ADMIN') or @courseService.isEnrolled(#courseId, authentication.principal.userId)")
 	public ResponseEntity<List<TopicResponseDto>> getAllTopicsByCourseId(
 			@PathVariable Long courseId) {
 		
@@ -148,6 +163,7 @@ public class CourseController {
 	}
 	
 	@GetMapping(value = "/{courseId:\\d+}/course-sections/{courseSectionId:\\d+}/topics")
+	@PreAuthorize("hasAuthority('ADMIN') or @courseService.isEnrolled(#courseId, authentication.principal.userId)")
 	public ResponseEntity<List<TopicResponseDto>> getAllTopicsByCourseIdAndCourseSectionId(
 			@PathVariable Long courseId, @PathVariable Long courseSectionId) {
 		
@@ -158,6 +174,7 @@ public class CourseController {
 	}
 	
 	@GetMapping(value = "/{courseId:\\d+}/course-sections/{courseSectionId:\\d+}/topics/{topicId:\\d+}")
+	@PreAuthorize("hasAuthority('ADMIN') or @courseService.isEnrolled(#courseId, authentication.principal.userId)")
 	public ResponseEntity<TopicResponseDto> getTopicById(
 			@PathVariable Long courseId, @PathVariable Long courseSectionId,
 			@PathVariable Long topicId) {
@@ -169,6 +186,7 @@ public class CourseController {
 	}
 
 	@PostMapping(value = "/{courseId:\\d+}/course-sections/{courseSectionId:\\d+}/topics")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<TopicResponseDto> createTopic(
 			@PathVariable Long courseId, @PathVariable Long courseSectionId,
 			@RequestBody TopicRequestDto topicRequestDto) {
@@ -180,6 +198,7 @@ public class CourseController {
 	}
 
 	@PutMapping(value = "/{courseId:\\d+}/course-sections/{courseSectionId:\\d+}/topics/{topicId:\\d+}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<TopicResponseDto> updateTopic(
 			@PathVariable Long courseId, @PathVariable Long courseSectionId,
 			@PathVariable Long topicId, @RequestBody TopicRequestDto topicRequestDto) {
@@ -191,6 +210,7 @@ public class CourseController {
 	}
 
 	@DeleteMapping(value = "/{courseId:\\d+}/course-sections/{courseSectionId:\\d+}/topics/{topicId:\\d+}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public ResponseEntity<Void> deleteTopic(
 			@PathVariable Long courseId, @PathVariable Long courseSectionId,
 			@PathVariable Long topicId) {

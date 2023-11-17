@@ -2,6 +2,7 @@ package com.nturbo1.satWebsiteProjBack.service.users;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -9,10 +10,11 @@ import com.nturbo1.satWebsiteProjBack.repository.UserRepository;
 import com.nturbo1.satWebsiteProjBack.repository.courses.CourseRepository;
 import com.nturbo1.satWebsiteProjBack.repository.entities.User;
 import com.nturbo1.satWebsiteProjBack.service.dto.request.users.StudentRequestDto;
-import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.GeneralCourseResponseDto;
+import com.nturbo1.satWebsiteProjBack.service.dto.response.courses.course.CourseResponseDto;
 import com.nturbo1.satWebsiteProjBack.service.dto.response.users.StudentResponseDto;
-import com.nturbo1.satWebsiteProjBack.service.mapper.courses.CourseMapper;
-import com.nturbo1.satWebsiteProjBack.service.mapper.courses.GeneralCourseMapper;
+import com.nturbo1.satWebsiteProjBack.service.mapper.courses.course.AdminCourseMapper;
+import com.nturbo1.satWebsiteProjBack.service.mapper.courses.course.CourseMapper;
+import com.nturbo1.satWebsiteProjBack.service.mapper.courses.course.StudentCourseMapper;
 import com.nturbo1.satWebsiteProjBack.service.mapper.users.StudentMapper;
 
 import lombok.AllArgsConstructor;
@@ -25,9 +27,11 @@ public class StudentService {
 	
 	private final UserRepository userRepository;
 	private final CourseRepository courseRepository;
+	
 	private final StudentMapper studentMapper;
 	private final CourseMapper courseMapper;
-	private final GeneralCourseMapper generalCourseMapper;
+	private final StudentCourseMapper studentCourseMapper;
+	private final AdminCourseMapper adminCourseMapper;
 	
 	public List<StudentResponseDto> readAllStudents() {
 		return studentMapper
@@ -43,9 +47,28 @@ public class StudentService {
 			throw new RuntimeException("Student with id = " + id + " doesn't exist.");
 	}
 	
-	public List<GeneralCourseResponseDto> getAllEnrolledCoursesByStudentId(Long studentId) {
-		return generalCourseMapper.mapToGeneralCourseResponseDtoList(
-				courseRepository.findAllEnrolledCoursesByStudentId(studentId));
+	public List<CourseResponseDto> getAllEnrolledCoursesByStudentIdForAdmin(Long studentId) {
+		
+		List<CourseResponseDto> courses = courseRepository.findAllEnrolledCoursesByStudentId(studentId)
+			.stream()
+			.map(course -> {
+				return adminCourseMapper.map(course);		
+			})
+			.collect(Collectors.toList());
+		
+		return courses;
+	}
+	
+	public List<CourseResponseDto> getAllEnrolledCoursesByStudentIdForStudent(Long studentId) {
+		
+		List<CourseResponseDto> courses = courseRepository.findAllEnrolledCoursesByStudentId(studentId)
+				.stream()
+				.map(course -> {
+					return studentCourseMapper.map(course);		
+				})
+				.collect(Collectors.toList());
+			
+		return courses;
 	}
 	
 	public StudentResponseDto update(Long studentId, StudentRequestDto studentRequestDto) {

@@ -28,6 +28,7 @@ public class CourseSectionService {
 	
 	private final CourseRelatedEntitiesBeforeCRUDCheck courseRelatedEntitiesBeforeCRUDCheck;
 
+	// Only Admins
 	public CourseSectionResponseDto createCourseSection(
 			Long courseId, CourseSectionRequestDto courseSectionRequestDto) {
 		
@@ -50,6 +51,7 @@ public class CourseSectionService {
 				courseSectionRepository.save(newCourseSection));
 	}
 
+	// Admins and enrolled students
 	public List<CourseSectionResponseDto> getAllCourseSectionsByCourseId(Long courseId) {
 		
 		// Checks for parentCourse existence
@@ -61,6 +63,7 @@ public class CourseSectionService {
 							.findCourseSectionsByCourseId(courseId));
 	}
 
+	// Admins and enrolled students
 	public Optional<CourseSectionResponseDto> getCourseSectionById(
 			Long courseId, Long courseSectionId) {
 		
@@ -75,6 +78,7 @@ public class CourseSectionService {
 						existingCourseAndCourseSection.getExistingCourseSection()));
 	}
 
+	// Only Admins
 	public CourseSectionResponseDto updateCourseSection(
 			Long courseId, Long courseSectionId,
 			CourseSectionRequestDto courseSectionRequestDto) {
@@ -96,6 +100,7 @@ public class CourseSectionService {
 				courseSectionRepository.save(updatedCourseSection));
 	}
 
+	// Only Admins
 	public void deleteCourseSection(Long courseId, Long courseSectionId) {
 		// Checks if the parentCourse and child courseSection exists.
 		// Also if the parent course has the child courseSection.
