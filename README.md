@@ -31,7 +31,6 @@
 - [📖 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
 - [📦 Features](#-features)
-- [📂 repository Structure](#-repository-structure)
 - [⚙️ Modules](#modules)
 ---
 
