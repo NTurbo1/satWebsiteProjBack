@@ -1,6 +1,5 @@
 <div align="center">
 <h1 align="center">
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
 <br>SATWEBSITEPROJBACK</h1>
 <h3>◦ ► INSERT-TEXT</h3>
 <h3>◦ Developed with the software and tools below.</h3>
