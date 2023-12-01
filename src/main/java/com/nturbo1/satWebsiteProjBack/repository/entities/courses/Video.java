@@ -29,7 +29,7 @@ public class Video {
 	private String link;
 	
 	@ManyToMany(mappedBy = "videos")
-	@JsonBackReference
+	@JsonBackReference(value = "videos")
 	private List<Topic> topics;
 
 }

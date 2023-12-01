@@ -105,11 +105,18 @@ public class CourseService {
 
 	// Only admins can delete courses.
 	public void deleteCourse(Long id) {
-		if (courseRepository.existsById(id)) {
-			courseRepository.deleteById(id);
-		} else {
-			throw new IllegalArgumentException("Course with id " + id + " does not exist.");
-		}
+		
+		Course existingCourse = courseRelatedEntitiesBeforeCRUDCheck.returnExistingCourse(id);
+		
+		existingCourse.getEnrolledStudents()
+			.stream()
+			.forEach(student -> {
+				student.getEnrolledCourses().remove(existingCourse);
+			});
+		
+		existingCourse.setEnrolledStudents(null);
+		
+		courseRepository.delete(existingCourse);
 	}
 	
 	public boolean isEnrolled(Long courseId, Long studentId) {

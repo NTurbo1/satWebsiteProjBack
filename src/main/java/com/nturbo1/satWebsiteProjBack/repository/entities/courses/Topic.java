@@ -3,9 +3,11 @@ package com.nturbo1.satWebsiteProjBack.repository.entities.courses;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+//@JsonIgnoreProperties({"videos"})
 public class Topic {
 	
 	@Id
@@ -31,6 +34,7 @@ public class Topic {
 	private Long id;
 	private String name;
 	private String description;
+	@Column(length = -1)
 	private String text;
 	
 	@ManyToOne

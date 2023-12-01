@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ import com.nturbo1.satWebsiteProjBack.web.versioning.ApiVersion;
 
 import lombok.Data;
 
+@CrossOrigin
 @RestController
 @ApiVersion(1)
 @RequestMapping(value = RestApiConst.COURSES_API_ROOT_PATH, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -104,8 +106,8 @@ public class CourseController {
 	}
 	
 	@GetMapping(value = "/{courseId:\\d+}/course-sections/{courseSectionId:\\d+}")
-	@PreAuthorize("hasAuthority('ADMIN') or @courseService(#courseId, authentication.principal.userId)")
-	public ResponseEntity<CourseSectionResponseDto> getCourseSectionByCourseId(
+	@PreAuthorize("hasAuthority('ADMIN') or @courseService.isEnrolled(#courseId, authentication.principal.userId)")
+	public ResponseEntity<CourseSectionResponseDto> getCourseSectionByCourseIdAndCourseSectionId(
 			@PathVariable Long courseId, @PathVariable Long courseSectionId) {
 		
 		return new ResponseEntity<CourseSectionResponseDto>(

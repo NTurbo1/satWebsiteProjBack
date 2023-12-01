@@ -103,6 +103,7 @@ public class ApplicationSecurityConfig {
 		configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://nturbo1.github.io/sat-website-proj-front"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
 		configuration.setAllowedHeaders(List.of("Authorization", "Content-type"));
+		configuration.setAllowCredentials(true);
 		
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
