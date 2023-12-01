@@ -354,11 +354,3 @@
 
 </details>
 ---
-
-## 👏 Acknowledgments
-
-- List any resources, contributors, inspiration, etc. here.
-
-[**Return**](#Top)
-
----
