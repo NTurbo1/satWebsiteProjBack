@@ -20,7 +20,7 @@
 <img src="https://img.shields.io/github/last-commit/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="git-last-commit" />
 <img src="https://img.shields.io/github/commit-activity/m/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="GitHub commit activity" />
 <img src="https://img.shields.io/github/languages/top/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="GitHub top language" />
-[![Stripe](https://img.shields.io/badge/Stripe-%23667FF6.svg?style=flat-square)](https://stripe.com/)
+<a href="https://stripe.com"><img src="https://img.shields.io/badge/Stripe-%23667FF6.svg?style=flat-square" alt="stripe api" /></a>
 </div>
 
 ---
