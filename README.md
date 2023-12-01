@@ -10,6 +10,7 @@ It's a spring boot project that implements the back-end part of my sat tutoring 
 - **Spring Data JPA and Hibernate**
 - **Spring Security**
 - **JSON Web Tokens based Authentication && Authorization**
+- **Payment service with Stripe API**
 
 ## Front-end
 https://github.com/NTurbo1/sat-website-proj-front
