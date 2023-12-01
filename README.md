@@ -1,7 +1,6 @@
 <div align="center">
 <h1 align="center">
 <br>SATWEBSITEPROJBACK</h1>
-<h3>◦ ► INSERT-TEXT</h3>
 <h3>◦ Developed with the software and tools below.</h3>
 
 <p align="center">
