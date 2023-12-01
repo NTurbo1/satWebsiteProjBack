@@ -7,6 +7,7 @@
 
 <p align="center">
 <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=flat-square&logo=openjdk&logoColor=white" alt="java" />
+<img src="https://img.shields.io/badge/spring-%23ED8B.svg?style=flat-square&logo=spring&logoColor=green" alt="spring" />
 </p>
 <img src="https://img.shields.io/github/license/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="GitHub license" />
 <img src="https://img.shields.io/github/last-commit/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="git-last-commit" />
