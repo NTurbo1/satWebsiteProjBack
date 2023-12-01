@@ -14,7 +14,7 @@
 <a href="https://spring.io/projects/spring-data-jpa"><img src="https://img.shields.io/badge/spring-data_jpa-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring data jpa" /></a>
 <a href="https://spring.io/web-applications"><img src="https://img.shields.io/badge/spring-web-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring web" /></a>
 <a href="https://stripe.com"><img src="https://img.shields.io/badge/Stripe-%23667FF6.svg?style=flat-square" alt="stripe api" /></a>
-<img src="https://img.shields.io/badge/io.jsonwebtoken-%230066CC.svg?style=flat-square" alt="io.jsonwebtoken" />
+<a href="https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt"><img src="https://img.shields.io/badge/io.jsonwebtoken-%230066CC.svg?style=flat-square" alt="io.jsonwebtoken" /></a>
 <a href="https://mapstruct.org/"><img src="https://img.shields.io/badge/MapStruct-%23F3508B.svg?style=flat-square&logo=mapstruct&logoColor=white" alt="mapstruct" /></a>
 <a href="https://projectlombok.org/"><img src="https://img.shields.io/badge/Lombok-%230A0A0A.svg?style=flat-square&logo=lombok&logoColor=white" alt="lombok" /></a>
 </p>
