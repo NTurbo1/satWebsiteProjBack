@@ -5,7 +5,7 @@
 <h3>◦ ► INSERT-TEXT</h3>
 <h3>◦ Developed with the software and tools below.</h3>
 
-<p align="center">
+<p align="center" width="700">
 <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=flat-square&logo=openjdk&logoColor=white" alt="java" />
 <img src="https://img.shields.io/badge/PostgreSQL-%23336791.svg?style=flat-square&logo=postgresql&logoColor=white" alt="postgresql" />
 <img src="https://img.shields.io/badge/spring-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring" />
@@ -17,10 +17,13 @@
 <img src="https://img.shields.io/badge/MapStruct-%23F3508B.svg?style=flat-square&logo=mapstruct&logoColor=white" alt="mapstruct" />
 <img src="https://img.shields.io/badge/Lombok-%230A0A0A.svg?style=flat-square&logo=lombok&logoColor=white" alt="lombok" />
 </p>
+
+<div align="center">
 <img src="https://img.shields.io/github/license/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="GitHub license" />
 <img src="https://img.shields.io/github/last-commit/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="git-last-commit" />
 <img src="https://img.shields.io/github/commit-activity/m/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="GitHub commit activity" />
 <img src="https://img.shields.io/github/languages/top/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="GitHub top language" />
+</div>
 </div>
 
 ---
