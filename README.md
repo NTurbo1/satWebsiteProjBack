@@ -5,7 +5,7 @@
 <h3>◦ ► INSERT-TEXT</h3>
 <h3>◦ Developed with the software and tools below.</h3>
 
-<p align="center" width="300px">
+<p align="center" width="300">
 <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=flat-square&logo=openjdk&logoColor=white" alt="java" />
 <img src="https://img.shields.io/badge/PostgreSQL-%23336791.svg?style=flat-square&logo=postgresql&logoColor=white" alt="postgresql" />
 <img src="https://img.shields.io/badge/spring-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring" />
