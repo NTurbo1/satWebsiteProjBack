@@ -57,26 +57,178 @@
 ## 📂 Repository Structure
 
 ```sh
-└── satWebsiteProjBack/
-    ├── .mvn/
-    │   └── wrapper/
-    ├── bin/
-    │   ├── .mvn/
-    │   │   └── wrapper/
-    │   ├── mvnw
-    │   ├── mvnw.cmd
-    │   └── src/
-    │       ├── main/
-    │       └── test/
-    ├── lombok.config
-    ├── mvnw
-    ├── mvnw.cmd
-    └── src/
-        ├── main/
-        │   ├── java/
-        │   └── resources/
-        └── test/
-            └── java/
+.
+|-- bin
+|   -- src
+|       |-- main
+|       |   |-- java
+|       |   |   -- com
+|       |   |       -- nturbo1
+|       |   |           -- practiceSAT
+|       |   -- resources
+|       -- test
+|           -- java
+|               -- com
+|                   -- nturbo1
+|                       -- practiceSAT
+-- src
+    |-- main
+    |   |-- java
+    |   |   -- com
+    |   |       -- nturbo1
+    |   |           -- satWebsiteProjBack
+    |   |               |-- repository
+    |   |               |   |-- courses
+    |   |               |   |   |-- CourseRepository.java
+    |   |               |   |   |-- CourseSectionRepository.java
+    |   |               |   |   |-- TopicRepository.java
+    |   |               |   |   -- VideoRepository.java
+    |   |               |   |-- entities
+    |   |               |   |   |-- compositeKeys
+    |   |               |   |   |   -- UserTestId.java
+    |   |               |   |   |-- courses
+    |   |               |   |   |   |-- Course.java
+    |   |               |   |   |   |-- CourseSection.java
+    |   |               |   |   |   |-- Topic.java
+    |   |               |   |   |   -- Video.java
+    |   |               |   |   |-- Permission.java
+    |   |               |   |   |-- Question.java
+    |   |               |   |   |-- QuestionType.java
+    |   |               |   |   |-- Role.java
+    |   |               |   |   |-- Test.java
+    |   |               |   |   |-- Token.java
+    |   |               |   |   |-- User.java
+    |   |               |   |   -- UserTest.java
+    |   |               |   |-- QuestionRepository.java
+    |   |               |   |-- QuestionTypeRepository.java
+    |   |               |   |-- RoleRepository.java
+    |   |               |   |-- TestRepository.java
+    |   |               |   |-- TokenRepository.java
+    |   |               |   |-- UserRepository.java
+    |   |               |   -- UserTestRepository.java
+    |   |               |-- SatPracticeWebsiteApplication.java
+    |   |               |-- service
+    |   |               |   |-- config
+    |   |               |   |   -- ServiceConfig.java
+    |   |               |   |-- courses
+    |   |               |   |   |-- CourseSectionService.java
+    |   |               |   |   |-- CourseService.java
+    |   |               |   |   |-- CourseStatus.java
+    |   |               |   |   |-- TopicService.java
+    |   |               |   |   |-- utils
+    |   |               |   |   |   |-- CourseRelatedEntitiesBeforeCRUDCheck.java
+    |   |               |   |   |   -- ExistingCourseRelatedEntities.java
+    |   |               |   |   -- VideoService.java
+    |   |               |   |-- dto
+    |   |               |   |   |-- request
+    |   |               |   |   |   |-- auth
+    |   |               |   |   |   |   |-- AuthenticationRequest.java
+    |   |               |   |   |   |   -- RegisterRequest.java
+    |   |               |   |   |   |-- courses
+    |   |               |   |   |   |   |-- CourseRequestDto.java
+    |   |               |   |   |   |   |-- CourseSectionRequestDto.java
+    |   |               |   |   |   |   |-- TopicRequestDto.java
+    |   |               |   |   |   |   -- VideoRequestDto.java
+    |   |               |   |   |   |-- QuestionRequestDto.java
+    |   |               |   |   |   |-- QuestionTypeRequestDto.java
+    |   |               |   |   |   |-- RoleRequestDto.java
+    |   |               |   |   |   |-- TestRequestDto.java
+    |   |               |   |   |   -- users
+    |   |               |   |   |       |-- InstructorRequestDto.java
+    |   |               |   |   |       |-- StudentRequestDto.java
+    |   |               |   |   |       -- UserRequestDto.java
+    |   |               |   |   -- response
+    |   |               |   |       |-- auth
+    |   |               |   |       |   -- AuthenticationResponse.java
+    |   |               |   |       |-- courses
+    |   |               |   |       |   |-- course
+    |   |               |   |       |   |   |-- AdminSpecificCourseResponseDto.java
+    |   |               |   |       |   |   |-- CourseResponseDto.java
+    |   |               |   |       |   |   |-- EnrolledStudentCourseResponseDto.java
+    |   |               |   |       |   |   -- StudentSpecificCourseResponseDto.java
+    |   |               |   |       |   |-- CourseSectionResponseDto.java
+    |   |               |   |       |   |-- TopicResponseDto.java
+    |   |               |   |       |   -- VideoResponseDto.java
+    |   |               |   |       |-- QuestionResponseDto.java
+    |   |               |   |       |-- QuestionTypeResponseDto.java
+    |   |               |   |       |-- RoleResponseDto.java
+    |   |               |   |       |-- TestResponseDto.java
+    |   |               |   |       -- users
+    |   |               |   |           |-- InstructorResponseDto.java
+    |   |               |   |           |-- StudentResponseDto.java
+    |   |               |   |           -- UserResponseDto.java
+    |   |               |   |-- mapper
+    |   |               |   |   |-- courses
+    |   |               |   |   |   |-- course
+    |   |               |   |   |   |   |-- AdminCourseMapper.java
+    |   |               |   |   |   |   |-- CourseMapper.java
+    |   |               |   |   |   |   |-- EnrolledStudentCourseMapper.java
+    |   |               |   |   |   |   -- StudentCourseMapper.java
+    |   |               |   |   |   |-- CourseSectionMapper.java
+    |   |               |   |   |   |-- TopicMapper.java
+    |   |               |   |   |   -- VideoMapper.java
+    |   |               |   |   |-- QuestionMapper.java
+    |   |               |   |   |-- QuestionTypeMapper.java
+    |   |               |   |   |-- RoleMapper.java
+    |   |               |   |   |-- TestMapper.java
+    |   |               |   |   -- users
+    |   |               |   |       |-- InstructorMapper.java
+    |   |               |   |       |-- StudentMapper.java
+    |   |               |   |       -- UserMapper.java
+    |   |               |   |-- payment
+    |   |               |   |   |-- PaymentService.java
+    |   |               |   |   -- StripeClient.java
+    |   |               |   |-- QuestionService.java
+    |   |               |   |-- QuestionTypeService.java
+    |   |               |   |-- RoleService.java
+    |   |               |   |-- security
+    |   |               |   |   |-- AuthenticationService.java
+    |   |               |   |   |-- JwtService.java
+    |   |               |   |   |-- LogoutService.java
+    |   |               |   |   -- TokenService.java
+    |   |               |   |-- TestService.java
+    |   |               |   -- users
+    |   |               |       |-- InstructorService.java
+    |   |               |       |-- StudentService.java
+    |   |               |       -- UserService.java
+    |   |               |-- ServletInitializer.java
+    |   |               -- web
+    |   |                   |-- controller
+    |   |                   |   |-- AuthenticationController.java
+    |   |                   |   |-- constants
+    |   |                   |   |   |-- RestApiConst.java
+    |   |                   |   |   -- UserRoleConst.java
+    |   |                   |   |-- courses
+    |   |                   |   |   -- CourseController.java
+    |   |                   |   |-- payment
+    |   |                   |   |   -- PaymentGatewayController.java
+    |   |                   |   |-- StudentController.java
+    |   |                   |   |-- TestController.java
+    |   |                   |   -- utils
+    |   |                   |       -- AuthorizationUtil.java
+    |   |                   |-- exception
+    |   |                   |   -- handler
+    |   |                   |       -- ApiVersionNotSupportedException.java
+    |   |                   |-- security
+    |   |                   |   |-- config
+    |   |                   |   |   |-- ApplicationSecurityConfig.java
+    |   |                   |   |   |-- ApplicationWebConfig.java
+    |   |                   |   |   |-- SimpleCorsFilter.java
+    |   |                   |   |   -- WebMvcRegistrationsConfig.java
+    |   |                   |   -- jwtutils
+    |   |                   |       -- JwtAuthenticationFilter.java
+    |   |                   -- versioning
+    |   |                       |-- ApiVersionCondition.java
+    |   |                       |-- ApiVersion.java
+    |   |                       -- ApiVersionRequestMappingHandlerMapping.java
+    |   |-- resources
+    |   -- webapp
+    -- test
+        -- java
+            -- com
+                -- nturbo1
+                    -- satWebsiteProjBack
+                        -- SatPracticeWebsiteApplicationTests.java
 
 ```
 
