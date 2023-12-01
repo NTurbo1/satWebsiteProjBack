@@ -7,9 +7,12 @@
 
 <p align="center">
 <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=flat-square&logo=openjdk&logoColor=white" alt="java" />
+<img src="https://img.shields.io/badge/PostgreSQL-%23336791.svg?style=flat-square&logo=postgresql&logoColor=white" alt="postgresql" />
 <img src="https://img.shields.io/badge/spring-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring" />
 <img src="https://img.shields.io/badge/hibernate-%23AF5E64.svg?style=flat-square&logo=hibernate&logoColor=white" alt="hibernate" />
 <img src="https://img.shields.io/badge/spring-security-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring security" />
+<img src="https://img.shields.io/badge/spring-data_jpa-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring data jpa" />
+<img src="https://img.shields.io/badge/spring-web-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring web" />
 <img src="https://img.shields.io/badge/MapStruct-%23F3508B.svg?style=flat-square&logo=mapstruct&logoColor=white" alt="mapstruct" />
 <img src="https://img.shields.io/badge/Lombok-%230A0A0A.svg?style=flat-square&logo=lombok&logoColor=white" alt="lombok" />
 </p>
@@ -17,6 +20,7 @@
 <img src="https://img.shields.io/github/last-commit/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="git-last-commit" />
 <img src="https://img.shields.io/github/commit-activity/m/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="GitHub commit activity" />
 <img src="https://img.shields.io/github/languages/top/NTurbo1/satWebsiteProjBack?style=flat-square&color=5D6D7E" alt="GitHub top language" />
+[![Stripe](https://img.shields.io/badge/Stripe-%23667FF6.svg?style=flat-square)](https://stripe.com/)
 </div>
 
 ---
