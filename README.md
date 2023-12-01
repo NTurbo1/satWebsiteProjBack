@@ -45,8 +45,13 @@
 
 ## 📦 Features
 
-► INSERT-TEXT
-
+- **MVC Design pattern**
+- **RESTful API**
+- **JSON Web Token based Authentication && Authorization**
+- **Payment service using Stripe API**
+- **User CRUD**
+- **Course CRUD**
+- **Secured API endpoints**
 ---
 
 
