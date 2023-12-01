@@ -5,17 +5,18 @@
 <h3>◦ ► INSERT-TEXT</h3>
 <h3>◦ Developed with the software and tools below.</h3>
 
-<p align="center" width="300">
-<img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=flat-square&logo=openjdk&logoColor=white" alt="java" />
-<img src="https://img.shields.io/badge/PostgreSQL-%23336791.svg?style=flat-square&logo=postgresql&logoColor=white" alt="postgresql" />
-<img src="https://img.shields.io/badge/spring-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring" />
-<img src="https://img.shields.io/badge/hibernate-%23AF5E64.svg?style=flat-square&logo=hibernate&logoColor=white" alt="hibernate" />
-<img src="https://img.shields.io/badge/spring-security-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring security" />
-<img src="https://img.shields.io/badge/spring-data_jpa-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring data jpa" />
-<img src="https://img.shields.io/badge/spring-web-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring web" />
+<p align="center">
+<a href="https://www.java.com"><img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=flat-square&logo=openjdk&logoColor=white" alt="java" /></a>
+<a href="https://www.postgresql.org/"><img src="https://img.shields.io/badge/PostgreSQL-%23336791.svg?style=flat-square&logo=postgresql&logoColor=white" alt="postgresql" /></a>
+<a href="https://spring.io"><img src="https://img.shields.io/badge/spring-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring" /></a>
+<a href="https://hibernate.org/"><img src="https://img.shields.io/badge/hibernate-%23AF5E64.svg?style=flat-square&logo=hibernate&logoColor=white" alt="hibernate" /></a>
+<a href="https://spring.io/projects/spring-security"><img src="https://img.shields.io/badge/spring-security-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring security" /></a>
+<a href="https://spring.io/projects/spring-data-jpa"><img src="https://img.shields.io/badge/spring-data_jpa-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring data jpa" /></a>
+<a href="https://spring.io/web-applications"><img src="https://img.shields.io/badge/spring-web-%23ED8B0.svg?style=flat-square&logo=spring&logoColor=white" alt="spring web" /></a>
 <a href="https://stripe.com"><img src="https://img.shields.io/badge/Stripe-%23667FF6.svg?style=flat-square" alt="stripe api" /></a>
-<img src="https://img.shields.io/badge/MapStruct-%23F3508B.svg?style=flat-square&logo=mapstruct&logoColor=white" alt="mapstruct" />
-<img src="https://img.shields.io/badge/Lombok-%230A0A0A.svg?style=flat-square&logo=lombok&logoColor=white" alt="lombok" />
+<img src="https://img.shields.io/badge/io.jsonwebtoken-%230066CC.svg?style=flat-square" alt="io.jsonwebtoken" />
+<a href="https://mapstruct.org/"><img src="https://img.shields.io/badge/MapStruct-%23F3508B.svg?style=flat-square&logo=mapstruct&logoColor=white" alt="mapstruct" /></a>
+<a href="https://projectlombok.org/"><img src="https://img.shields.io/badge/Lombok-%230A0A0A.svg?style=flat-square&logo=lombok&logoColor=white" alt="lombok" /></a>
 </p>
 
 <div align="center">
