@@ -37,7 +37,34 @@
 
 ## 📍 Overview
 
-► INSERT-TEXT
+This is the back-end of a full stack tutoring web app I have built using React JS in the front end and Spring boot in the backend with Hibernate and PostgreSQL. The idea for the project came to me after my friend told me he needed a tutoring website to teach high school students and advertise his courses. I have specifically used JavaScript, React JS, Tailwind CSS, Vite, ESLint for the front-end and Java 17, Spring Boot, Spring Data JPA, Spring Web, Spring Security, PostgreSQL, Hibernate, Maven, Stripe API, JSON Web Tokens for the back-end part. 
+
+The main features of the front end part are: 
+
+user login and logout pages, 
+JSON Web Tokens based Authentication && Authorization, 
+admin and student account pages, 
+student management, 
+course management, 
+course enrollment, 
+payment process, 
+admin and student profiles. 
+
+I have deployed the front-end code to github pages at https://nturbo1.github.io/sat-website-proj-front and the code repository link is https://github.com/NTurbo1/sat-website-proj-front. 
+
+The main features of the back-end part are: 
+
+MVC Design pattern, 
+RESTful API, 
+JSON Web Token based Authentication && Authorization, 
+payment service using Stripe API, 
+user CRUD, 
+course CRUD,
+secured API endpoints. 
+
+The github repository link for the back-end is https://github.com/NTurbo1/satWebsiteProjBack. 
+
+This website project taught me most of the software development life cycle as I have gathered requirements for the app from my friend and analyzed them, created database system design according to the requirements (finding the necessary entities and the appropriate relationships between them), and list what features the front-end and the back-end should have had. I have used Spring Security to secure my RESTful API endpoints with JSON Web Tokens. The API endpoints are authenticated and authorized both in configuration and controller level.
 
 ---
 
